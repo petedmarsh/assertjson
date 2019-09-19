@@ -13,6 +13,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     api("org.assertj:assertj-core:3.+")
+    implementation("com.flipkart.zjsonpatch:zjsonpatch:0.+")
 }
 
 compileKotlin {
