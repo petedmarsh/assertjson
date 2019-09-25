@@ -12,8 +12,6 @@ class SerializesToSameJsonAsAssert(actual: Any?) : AbstractAssert<SerializesToSa
     lateinit var serializer: JsonSerializer
 
     companion object {
-        val EMPTY_DIFF = mapper.readTree("[]")!!
-
         @JvmStatic
         fun assertThat(actual: Any?): SerializesToSameJsonAsAssert {
             return SerializesToSameJsonAsAssert(actual)
@@ -52,7 +50,7 @@ class SerializesToSameJsonAsAssert(actual: Any?) : AbstractAssert<SerializesToSa
 
         val diff = JsonDiff.asJson(expectedJsonNode, actualJsonNode)
 
-        if (diff != SerializesToSameJsonAsAssert.EMPTY_DIFF) {
+        if (diff != EMPTY_DIFF) {
             failWithMessage("Expecting serialized actual:\n <%s>\nto be same JSON as:\n <%s>\nbut it isn't", actualJson, expected)
         }
 

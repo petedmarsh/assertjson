@@ -11,8 +11,6 @@ val mapper = ObjectMapper()
 class IsSameJsonAsAssert(actual: String) : AbstractAssert<IsSameJsonAsAssert, String>(actual, IsSameJsonAsAssert::class.java) {
 
     companion object {
-        val EMPTY_DIFF = mapper.readTree("[]")!!
-
         @JvmStatic
         fun assertThat(actual: String): IsSameJsonAsAssert {
             return IsSameJsonAsAssert(actual)
