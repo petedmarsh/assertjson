@@ -1,6 +1,5 @@
 package xyz.gamblor.assertjson
 
-import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.flipkart.zjsonpatch.JsonDiff
@@ -8,8 +7,7 @@ import org.assertj.core.api.AbstractAssert
 
 val mapper = ObjectMapper()
 
-class IsSameJsonAsAssert(actual: String) : AbstractAssert<IsSameJsonAsAssert, String>(actual, IsSameJsonAsAssert::class.java) {
-
+class IsSameJsonAsAssert(actual: String) : AbstractAssert<IsSameJsonAsAssert, String>(actual, IsSameJsonAsAssert::class.java), JsonHelpers {
     companion object {
         @JvmStatic
         fun assertThat(actual: String): IsSameJsonAsAssert {
@@ -17,20 +15,14 @@ class IsSameJsonAsAssert(actual: String) : AbstractAssert<IsSameJsonAsAssert, St
         }
     }
 
-    fun isSameJsonAs(expected: String): IsSameJsonAsAssert {
-        val actualJsonNode: JsonNode = try {
-            mapper.readTree(actual)
-        } catch (e: JsonParseException) {
-            failWithMessage("Expecting actual:\n <%s>\nto be valid JSON, but it isn't:\n %s", actual, e.message)
-            throw RuntimeException() // failWithMessage will raise, this is to satisfy compiler
-        }
+    override fun failWithMessage(errorMessage: String?, vararg arguments: Any?) {
+        super.failWithMessage(errorMessage, *arguments)
+    }
 
-        val expectedJsonNode: JsonNode = try {
-            mapper.readTree(expected)
-        } catch (e: JsonParseException) {
-            failWithMessage("Expecting expected:\n <%s>\nto be valid JSON, but it isn't:\n %s", expected, e.message)
-            throw RuntimeException() // failWithMessage will raise, this is to satisfy compiler
-        }
+    fun isSameJsonAs(expected: String): IsSameJsonAsAssert {
+        val actualJsonNode: JsonNode = parseJson(actual, "Expecting actual:\n <%s>\nto be valid JSON, but it isn't:\n %s")
+
+        val expectedJsonNode: JsonNode = parseJson(expected, "Expecting expected:\n <%s>\nto be valid JSON, but it isn't:\n %s")
 
         val diff = JsonDiff.asJson(expectedJsonNode, actualJsonNode)
 
