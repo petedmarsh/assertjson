@@ -68,6 +68,21 @@ class ExampleTest {
     }
 
     @Test
+    fun `deserialize a string and compare to an object`() {
+        assertThat("{\"something\": \"deserialize\"}")
+            .deserializedBy { json -> ObjectMapper().readValue(json, Map::class.java) }
+            .isEqualTo(mapOf("something" to "deserialize"))
+    }
+
+    @Test
+    fun `deserialize a string to a specified type and compare to an object`() {
+        assertThat("{\"something\": \"deserialize\"}")
+            // clazz is inferred from the instance given in isEqualTo
+            .deserializedBy { json, clazz -> ObjectMapper().readValue(json, clazz) }
+            .isEqualTo(mapOf("something" to "deserialize"))
+    }
+
+    @Test
     fun `serialize an object and compare to a string`() {
         assertThat(mapOf("something" to "serialize"))
             .serializedBy { ObjectMapper().writeValueAsString(it) }
