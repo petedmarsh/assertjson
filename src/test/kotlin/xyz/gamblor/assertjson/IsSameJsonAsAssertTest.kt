@@ -110,7 +110,16 @@ class IsSameJsonAsAssertTest {
                 )
             }
 
-        }
+            @Test
+            fun `when actual is a JSON null and expected is also null`() {
+                val actual = "null"
+                val expected = null
+
+                IsSameJsonAsAssert.assertThat(actual)
+                    .deserializedBy(deserializer<Any>())
+                    .isEqualTo(expected)
+            }
+         }
 
         @Nested
         inner class `when a typed deserializer has been specified` {
@@ -164,6 +173,16 @@ class IsSameJsonAsAssertTest {
                 val assert = IsSameJsonAsAssert.assertThat(actual)
 
                 assertThat(assert.deserializedBy(typedDeserializer).isEqualTo(expected)).isSameAs(assert)
+            }
+
+            @Test
+            fun `when actual is a JSON null and expected is also null`() {
+                val actual = "null"
+                val expected = null
+
+                IsSameJsonAsAssert.assertThat(actual)
+                    .deserializedBy(typedDeserializer)
+                    .isEqualTo(expected)
             }
         }
 

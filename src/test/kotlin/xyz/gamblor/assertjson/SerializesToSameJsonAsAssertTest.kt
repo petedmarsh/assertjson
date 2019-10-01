@@ -77,6 +77,15 @@ class SerializesToSameJsonAsAssertTest {
         val serializer: JsonSerializer = { a -> mapper.writeValueAsString(a) }
 
         @Test
+        fun `when actual is null and the serializer does support serializing nulls`() {
+            val actual = null
+            val expected = "null"
+
+            SerializesToSameJsonAsAssert.assertThat(actual)
+                .serializedBy(serializer).isSameJsonAs(expected)
+        }
+
+        @Test
         fun `when actual serializes to JSON that is semantically identical to expected`() {
             val actual = mapOf("key1" to "valueA", "key2" to "valueB")
             val expected = "{\"key2\": \"valueB\", \"key1\": \"valueA\"}"
