@@ -9,7 +9,7 @@ class AssertJsonAssertions {
         }
 
         @JvmStatic
-        fun assertThat(o: Any): SerializesToSameJsonAsAssert {
+        fun assertThat(o: Any?): SerializesToSameJsonAsAssert {
             return SerializesToSameJsonAsAssert(o)
         }
     }
