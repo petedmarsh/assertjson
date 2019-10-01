@@ -99,7 +99,7 @@ class IsSameJsonAsAssertTest {
             }
 
             @Test
-            fun `when actual is valid JSON and does not deserialize to an instance equal to expected`() {
+            fun `when actual is valid JSON and does deserialize to an instance equal to expected`() {
                 val actual = "{\"some\": \"json\"}"
                 val expected = mapOf("some" to "json")
 
@@ -166,7 +166,7 @@ class IsSameJsonAsAssertTest {
             }
 
             @Test
-            fun `when actual is valid JSON and does not deserialize to an instance equal to expected`() {
+            fun `when actual is valid JSON and does deserialize to an instance equal to expected`() {
                 val actual = "{\"some\": \"json\"}"
                 val expected = mapOf("some" to "json")
 
