@@ -26,12 +26,12 @@ Then add a dependency to `build.gradle.kt` as usual:
 //build.gradle.kt
 //...
 dependencies {
-    testImplementation("xyz.gamblor:assertjson:1.0.0")
+    testImplementation("xyz.gamblor:assertjson:1.1.0")
 }
 //...
 ```
 
-The version (e.g. `1.0.0`) should match a published tag, see: https://github.com/petedmarsh/assertjson/releases for a
+The version (e.g. `1.1.0`) should match a published tag, see: https://github.com/petedmarsh/assertjson/releases for a
 complete list.
 
 ### IntelliJ
