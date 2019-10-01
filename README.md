@@ -26,7 +26,7 @@ Then add a dependency to `build.gradle.kt` as usual:
 //build.gradle.kt
 //...
 dependencies {
-    testImplementation("xyz.gamblor:assertjson:1.1.0")
+    testImplementation("xyz.gamblor:assertjson:1.1.1")
 }
 //...
 ```
